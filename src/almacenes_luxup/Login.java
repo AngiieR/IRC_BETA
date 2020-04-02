@@ -11,7 +11,7 @@ public class Login {
     public Login(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ALMACENES_LUXUP","root","");
+            con=DriverManager.getConnection("jdbc:mysql://bdxgc2vdsbugfcz0yisv-mysql.services.clever-cloud.com:3306/bdxgc2vdsbugfcz0yisv","uql2idnbovgs7tg3","lyCCfDbeS5GTNDBkLVhQ");
         } catch (Exception e) {
             System.err.println("Error:" +e);
         }
