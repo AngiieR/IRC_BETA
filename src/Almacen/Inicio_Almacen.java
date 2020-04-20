@@ -5,9 +5,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Inicio.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class Inicio_Almacen extends javax.swing.JFrame {
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }       
+    
     conexionSQL cc = new conexionSQL();
     Connection con = cc.conexion();
 
@@ -22,11 +33,6 @@ public class Inicio_Almacen extends javax.swing.JFrame {
     
     public void BotonProductoNuevo() {
         Carga_Producto_Nuevo form = new Carga_Producto_Nuevo();
-        form.setVisible(true);
-        this.dispose();
-    }
-    public void BotonAnadirStock() {
-        Añadir_Stock form = new Añadir_Stock();
         form.setVisible(true);
         this.dispose();
     }
@@ -56,6 +62,7 @@ public class Inicio_Almacen extends javax.swing.JFrame {
         jButtonProductoNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -197,7 +204,7 @@ public class Inicio_Almacen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProductoNuevoActionPerformed
 
     private void jButtonAñadirStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirStockActionPerformed
-        BotonAnadirStock();
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAñadirStockActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed

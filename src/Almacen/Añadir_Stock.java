@@ -2,6 +2,8 @@ package Almacen;
 
 
 import conexion.conexionSQL;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +11,15 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class Añadir_Stock extends javax.swing.JFrame {
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }       
     
     public String varnombre="";
     public String vardepartamento="";
@@ -138,6 +149,7 @@ public void botonVolver(){
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 

@@ -3,20 +3,41 @@ package Almacen;
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Carga_Producto_Nuevo extends javax.swing.JFrame {
-   
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }    
+    
     conexionSQL cc = new conexionSQL();
     Connection con = cc.conexion();
 
     PreparedStatement ps;
     ResultSet rs;
-
+    
+    
     private void limpiarCajas() {
 
         TxtCodigodeBarras.setText(null);
@@ -27,9 +48,11 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         Txtproveedor.setText(null);
         Txtdescripcion.setText(null);
         TxtExistencia.setText(null);
+        TxtImagen.removeAll();
+        TxtImagen.repaint();
         TxtCodigodeBarras.requestFocus();
     }
-
+   
     public void insertarProducto() {
 
         String id = TxtCodigodeBarras.getText();
@@ -41,11 +64,18 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         String proveedor = Txtproveedor.getText();
         String descripcion = Txtdescripcion.getText();
 
-        //int resultado = 0;
+        //Imagen
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.PNG", "png");
+        fc.setFileFilter(filtro);
+        
+        int seleccion = fc.showOpenDialog(this);       
+        
         String barras = TxtCodigodeBarras.getText();
         String SQL_consulta = "select * from productos where id = '" + barras + "';";
-        String SQL_insertar = "INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION) VALUES ('" + id + "', '" + departamento + "', '" + producto + "', " + costo_unitario + ", " + precio_unitario + ", " + existencia + ", '" + proveedor + "', '" + descripcion + "');";
-
+        String SQL_insertar = "INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION) VALUES ('" + id + "', '" + departamento + "', '" + producto + "', " + costo_unitario + ", " + precio_unitario + ", " + existencia + ", '" + proveedor + "', '" + descripcion + "');";      
+        
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SQL_consulta);
@@ -54,19 +84,67 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Producto ya existe");
             } else {
                 try {
-                    Statement sti = con.createStatement();
-                    sti.executeUpdate(SQL_insertar);
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        File fichero = fc.getSelectedFile();
+                        String ruta = fichero.getAbsolutePath();
+                        
+                        //Datos de Formulario
+                        
+                        try {
+                            FileInputStream fis = new FileInputStream(fichero);
+                            Connection con = cc.conexion();
+                            try {
+                                PreparedStatement ps;
+                                ResultSet rsimg;
 
-                    //if (rsi.next()){
-                    JOptionPane.showMessageDialog(null, "Producto agregado");
-                    this.dispose();
-                    this.setVisible(true);
-                    //} 
+                                ps = con.prepareStatement("INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION, imagen_d) VALUES (?,?,?,?,?,?,?,?,?);");
+                                ps.setString(1, id);
+                                ps.setString(2, departamento);
+                                ps.setString(3, producto);
+                                ps.setString(4, costo_unitario);
+                                ps.setString(5, precio_unitario);
+                                ps.setString(6, existencia);
+                                ps.setString(7, proveedor);
+                                ps.setString(8, descripcion);
+                                                                
+                                ps.setBinaryStream(9, fis, (int) fichero.length());
+                                ps.execute();
+                                ps.close();
+                                JOptionPane.showMessageDialog(null, "Imagen Guardada");
+
+                                //Mostrar imagen
+                                int x = TxtImagen.getWidth();
+                                int y = TxtImagen.getHeight();
+                                Imagen img = new Imagen(x, y, ruta);
+                                TxtImagen.add(img);
+                                TxtImagen.repaint();
+                                
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
+                            }
+                        
+                        ps.close();
+                        con.close();                            
+
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        Statement sti = con.createStatement();
+                        sti.executeUpdate(SQL_insertar);
+
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        this.dispose();
+                        this.setVisible(true);
+                    }
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
                 }
             }
-
+            rs.close();
+            st.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
@@ -78,10 +156,34 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         this.dispose();
     }
 
+    public void mostrarImagen(){
+        
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.PNG", "png");
+        fc.setFileFilter(filtro);
+        
+        int seleccion = fc.showOpenDialog(this);     
+        
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File fichero = fc.getSelectedFile();
+            String ruta = fichero.getAbsolutePath();
+
+            int x = TxtImagen.getWidth();
+            int y = TxtImagen.getHeight();
+            Imagen imgExt = new Imagen(x, y, ruta);
+            TxtImagen.add(imgExt);
+            TxtImagen.repaint();
+        }
+
+    }
+        
     public Carga_Producto_Nuevo() {
-        initComponents();
+        initComponents();   
     }
 
+
+    
     @SuppressWarnings("unchecked")
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,7 +203,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        TxtImagen = new javax.swing.JTextField();
         TxtCodigodeBarras = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
         jButtonVolver = new javax.swing.JButton();
@@ -113,6 +214,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         TxtPrecio = new javax.swing.JTextField();
         Txtcosto = new javax.swing.JTextField();
         jButtonLimpiar = new javax.swing.JButton();
+        TxtImagen = new javax.swing.JPanel();
 
         TxtCodigodeBarras4.setToolTipText("");
         TxtCodigodeBarras4.setName("TxtCodigodeBarras"); // NOI18N
@@ -123,6 +225,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -177,8 +280,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         jLabel11.setText("Costo:");
 
         jLabel12.setText("Imagen:");
-
-        TxtImagen.setEditable(false);
 
         TxtCodigodeBarras.setToolTipText("");
         TxtCodigodeBarras.setName("TxtCodigodeBarras"); // NOI18N
@@ -248,6 +349,17 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout TxtImagenLayout = new javax.swing.GroupLayout(TxtImagen);
+        TxtImagen.setLayout(TxtImagenLayout);
+        TxtImagenLayout.setHorizontalGroup(
+            TxtImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 229, Short.MAX_VALUE)
+        );
+        TxtImagenLayout.setVerticalGroup(
+            TxtImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 159, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -284,25 +396,27 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                         .addComponent(Txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(86, 86, 86)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(79, 79, 79))))
+                        .addGap(79, 79, 79))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(TxtCodigodeBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -333,10 +447,10 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                             .addComponent(Txtproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -344,9 +458,8 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -446,7 +559,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     private javax.swing.JTextField TxtCodigodeBarras4;
     private javax.swing.JTextField TxtDepartamento;
     private javax.swing.JTextField TxtExistencia;
-    private javax.swing.JTextField TxtImagen;
+    private javax.swing.JPanel TxtImagen;
     private javax.swing.JTextField TxtNombredelproducto;
     private javax.swing.JTextField TxtPrecio;
     private javax.swing.JTextField Txtcosto;
