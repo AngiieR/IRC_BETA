@@ -11,61 +11,11 @@ import javax.swing.JOptionPane;
 
 public class Caja extends javax.swing.JFrame {
     
-    public String varnombre="";
-    public String vardepartamento="";
-    public String varexistencia="";
-    public String varproveedor="";
-    public String vardescripcion="";
-    public String varprecio="";
-    public String varcosto="";
-    
     conexionSQL cc=new conexionSQL();
     Connection con=cc.conexion();
         
     PreparedStatement ps;
     ResultSet rs;
-    
-private void limpiarCajas(){
-    
-    TxtCodigodeBarras.setText(null);
-    
-    TxtCodigodeBarras.requestFocus();
-}    
-
-public void validarProducto(){
-    
-        int resultado = 0;
-        String barras = TxtCodigodeBarras.getText();
-        String SQL = "select * from productos where id = '"+ barras +"';";
-        
-        
-        try{
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(SQL);
-            
-            if (rs.next()){
-                resultado = 1;
-                if (resultado==1){ 
-                    JOptionPane.showMessageDialog(null,"Producto no encontrado");                    
-                    this.dispose();
-                    this.setVisible(true);
-                }
-            }               
-            else{
-                   this.setVisible(true);
-
-            }
-  
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-    }
-   
-public void botonVolver(){            
-    Inicio_Almacen form = new Inicio_Almacen();
-    form.setVisible(true);
-    this.dispose();
- }
 
     public Caja() {
         initComponents();
