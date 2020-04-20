@@ -8,10 +8,7 @@ import javax.swing.JOptionPane;
 import Almacen.*;
 import Caja.*;
 
-/**
- *
- * @author AngelicaReyesChaparr
- */
+
 public class Login_Caja extends javax.swing.JFrame {
 
     conexionSQL cc=new conexionSQL();

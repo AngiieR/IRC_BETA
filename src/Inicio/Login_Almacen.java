@@ -7,10 +7,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Almacen.*;
 
-/**
- *
- * @author AngelicaReyesChaparr
- */
+
 public class Login_Almacen extends javax.swing.JFrame {
 
     conexionSQL cc=new conexionSQL();
