@@ -114,6 +114,10 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                                 Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
                                 JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
                             }
+                        
+                        ps.close();
+                        con.close();                            
+
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -130,7 +134,8 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
                 }
             }
-
+            rs.close();
+            st.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
