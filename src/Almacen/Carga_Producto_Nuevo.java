@@ -36,7 +36,8 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         Txtproveedor.setText(null);
         Txtdescripcion.setText(null);
         TxtExistencia.setText(null);
-
+        TxtImagen.removeAll();
+        TxtImagen.repaint();
         TxtCodigodeBarras.requestFocus();
     }
 
@@ -81,6 +82,98 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }
+    
+    public void insertarProducto2() {
+
+        String id = TxtCodigodeBarras.getText();
+        String departamento = TxtDepartamento.getText();
+        String producto = TxtNombredelproducto.getText();
+        String costo_unitario = Txtcosto.getText();
+        String precio_unitario = TxtPrecio.getText();
+        String existencia = TxtExistencia.getText();
+        String proveedor = Txtproveedor.getText();
+        String descripcion = Txtdescripcion.getText();
+
+        //Imagen
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.PNG", "png");
+        fc.setFileFilter(filtro);
+        
+        int seleccion = fc.showOpenDialog(this);       
+        
+        String barras = TxtCodigodeBarras.getText();
+        String SQL_consulta = "select * from productos where id = '" + barras + "';";
+        String SQL_insertar = "INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION) VALUES ('" + id + "', '" + departamento + "', '" + producto + "', " + costo_unitario + ", " + precio_unitario + ", " + existencia + ", '" + proveedor + "', '" + descripcion + "');";      
+        
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(SQL_consulta);
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Producto ya existe");
+            } else {
+                try {
+                    if (seleccion == JFileChooser.APPROVE_OPTION) {
+                        File fichero = fc.getSelectedFile();
+                        String ruta = fichero.getAbsolutePath();
+                        
+                        //Datos de Formulario
+                        
+                        try {
+                            FileInputStream fis = new FileInputStream(fichero);
+                            Connection con = cc.conexion();
+                            try {
+                                PreparedStatement ps;
+                                ResultSet rsimg;
+
+                                ps = con.prepareStatement("INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION, imagen_d) VALUES (?,?,?,?,?,?,?,?,?);");
+                                ps.setString(1, id);
+                                ps.setString(2, departamento);
+                                ps.setString(3, producto);
+                                ps.setString(4, costo_unitario);
+                                ps.setString(5, precio_unitario);
+                                ps.setString(6, existencia);
+                                ps.setString(7, proveedor);
+                                ps.setString(8, descripcion);
+                                                                
+                                ps.setBinaryStream(9, fis, (int) fichero.length());
+                                ps.execute();
+                                ps.close();
+                                JOptionPane.showMessageDialog(null, "Imagen Guardada");
+
+                                //Mostrar imagen
+                                int x = TxtImagen.getWidth();
+                                int y = TxtImagen.getHeight();
+                                Imagen img = new Imagen(x, y, ruta);
+                                TxtImagen.add(img);
+                                TxtImagen.repaint();
+                                
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
+                            }
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        Statement sti = con.createStatement();
+                        sti.executeUpdate(SQL_insertar);
+
+                        JOptionPane.showMessageDialog(null, "Producto agregado");
+                        this.dispose();
+                        this.setVisible(true);
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
 
     public void botonVolver() {
         Inicio_Almacen form = new Inicio_Almacen();
@@ -95,57 +188,19 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.PNG", "png");
         fc.setFileFilter(filtro);
         
-        int seleccion = fc.showOpenDialog(this);
+        int seleccion = fc.showOpenDialog(this);     
         
-        //PreparedStatement ps;
-        //ResultSet rs;
-        //conexionSQL cc = new conexionSQL();
-        //Conexion objCon = new Conexion();
-        
-        String barras = TxtCodigodeBarras.getText();
-        
-        if (barras.length() == 0) {
-            JOptionPane.showMessageDialog(null, "Antes ingresa un codigo de Barras");
-        } else {
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File fichero = fc.getSelectedFile();
+            String ruta = fichero.getAbsolutePath();
 
-            if (seleccion == JFileChooser.APPROVE_OPTION) {
-                File fichero = fc.getSelectedFile();
-                String ruta = fichero.getAbsolutePath();
-                //String SQL_imagen = "INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION) VALUES ('test1233','test','test',1,1,1,'test','test');";
-                        
+            int x = TxtImagen.getWidth();
+            int y = TxtImagen.getHeight();
+            Imagen imgExt = new Imagen(x, y, ruta);
+            TxtImagen.add(imgExt);
+            TxtImagen.repaint();
+        }
 
-                try {
-                    FileInputStream fis = new FileInputStream(fichero);
-                    Connection con = cc.conexion();
-                    try {
-                        //Statement stimg = con.createStatement();
-                        //stimg.executeUpdate(SQL_imagen);
-                        
-                        PreparedStatement ps;
-                        ResultSet rs;
-                        
-                        ps = con.prepareStatement("INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION, imagen_d) VALUES ('test12333','test','test',1,1,1,'test','test',?);");
-                        //ps.setString(1, barras);
-                        ps.setBinaryStream(1, fis, (int) fichero.length());
-                        ps.execute();
-                        ps.close();
-                        JOptionPane.showMessageDialog(null, "Imagen Guardada");
-
-                        //int x = TxtImagen.getWidth();
-                        //int y = TxtImagen.getHeight();
-                        //Imagen img = new Imagen(x, y, ruta);
-                        //TxtImagen.add(img);
-                        //TxtImagen.repaint();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
-                    }
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }            
-            
-        } 
     }
     
     public Carga_Producto_Nuevo() {
@@ -185,7 +240,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         Txtcosto = new javax.swing.JTextField();
         jButtonLimpiar = new javax.swing.JButton();
         TxtImagen = new javax.swing.JPanel();
-        cargarImg = new javax.swing.JButton();
 
         TxtCodigodeBarras4.setToolTipText("");
         TxtCodigodeBarras4.setName("TxtCodigodeBarras"); // NOI18N
@@ -323,20 +377,12 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         TxtImagen.setLayout(TxtImagenLayout);
         TxtImagenLayout.setHorizontalGroup(
             TxtImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 229, Short.MAX_VALUE)
         );
         TxtImagenLayout.setVerticalGroup(
             TxtImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
+            .addGap(0, 159, Short.MAX_VALUE)
         );
-
-        cargarImg.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cargarImg.setText("Cargar Imagen");
-        cargarImg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargarImgActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -383,22 +429,18 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(cargarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(40, Short.MAX_VALUE))))
+                                .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel12))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(TxtCodigodeBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -429,12 +471,10 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                             .addComponent(Txtproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cargarImg)))
+                        .addGap(14, 14, 14)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -475,7 +515,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtCodigodeBarras
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        insertarProducto();
+        insertarProducto2();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
@@ -505,10 +545,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         limpiarCajas();
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
-
-    private void cargarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarImgActionPerformed
-        mostrarImagen();
-    }//GEN-LAST:event_cargarImgActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -554,7 +590,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     private javax.swing.JTextField Txtcosto;
     private javax.swing.JTextField Txtdescripcion;
     private javax.swing.JTextField Txtproveedor;
-    private javax.swing.JButton cargarImg;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonVolver;
