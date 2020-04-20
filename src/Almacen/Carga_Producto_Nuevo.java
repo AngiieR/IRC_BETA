@@ -27,7 +27,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         Txtproveedor.setText(null);
         Txtdescripcion.setText(null);
         TxtExistencia.setText(null);
-
         TxtCodigodeBarras.requestFocus();
     }
 
