@@ -246,7 +246,6 @@
                           <Component id="Txtdescripcion" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonGuardar" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Component id="jButtonLimpiar" min="-2" pref="40" max="-2" attributes="0"/>

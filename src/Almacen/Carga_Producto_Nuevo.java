@@ -3,9 +3,11 @@ package Almacen;
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -40,50 +43,8 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         TxtImagen.repaint();
         TxtCodigodeBarras.requestFocus();
     }
-
+   
     public void insertarProducto() {
-
-        String id = TxtCodigodeBarras.getText();
-        String departamento = TxtDepartamento.getText();
-        String producto = TxtNombredelproducto.getText();
-        String costo_unitario = Txtcosto.getText();
-        String precio_unitario = TxtPrecio.getText();
-        String existencia = TxtExistencia.getText();
-        String proveedor = Txtproveedor.getText();
-        String descripcion = Txtdescripcion.getText();
-
-        //int resultado = 0;
-        String barras = TxtCodigodeBarras.getText();
-        String SQL_consulta = "select * from productos where id = '" + barras + "';";
-        String SQL_insertar = "INSERT INTO productos (ID, DEPARTAMENTO, PRODUCTO, COSTO_UNITARIO, PRECIO_UNITARIO, EXISTENCIA, PROVEEDOR, DESCRIPCION) VALUES ('" + id + "', '" + departamento + "', '" + producto + "', " + costo_unitario + ", " + precio_unitario + ", " + existencia + ", '" + proveedor + "', '" + descripcion + "');";
-
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(SQL_consulta);
-
-            if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Producto ya existe");
-            } else {
-                try {
-                    Statement sti = con.createStatement();
-                    sti.executeUpdate(SQL_insertar);
-
-                    //if (rsi.next()){
-                    JOptionPane.showMessageDialog(null, "Producto agregado");
-                    this.dispose();
-                    this.setVisible(true);
-                    //} 
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-                }
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-    }
-    
-    public void insertarProducto2() {
 
         String id = TxtCodigodeBarras.getText();
         String departamento = TxtDepartamento.getText();
@@ -202,7 +163,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
         }
 
     }
-    
+        
     public Carga_Producto_Nuevo() {
         initComponents();   
     }
@@ -515,7 +476,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtCodigodeBarras
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        insertarProducto2();
+        insertarProducto();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed

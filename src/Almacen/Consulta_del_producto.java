@@ -2,10 +2,13 @@ package Almacen;
 
 
 import conexion.conexionSQL;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Consulta_del_producto extends javax.swing.JFrame {
@@ -33,7 +36,9 @@ private void limpiarCajas(){
     TxtPrecio.setText(null); 
     Txtproveedor.setText(null);
     Txtdescripcion.setText(null);
-    TxtExistencia.setText(null);    
+    TxtExistencia.setText(null); 
+    TxtImagen.removeAll();
+    TxtImagen.repaint();
     
     TxtCodigodeBarras.requestFocus();
 }    
@@ -43,6 +48,9 @@ public void validarProducto(){
         int resultado = 0;
         String barras = TxtCodigodeBarras.getText();
         String SQL = "select * from productos where id = '"+ barras +"';";
+        //Imagen
+        BufferedImage buffimg = null;
+        byte[] image = null;
         
         
         try{
@@ -51,6 +59,9 @@ public void validarProducto(){
             
             if (rs.next()){
                 resultado = 1;
+                //Imagen
+                //image = rs.getBytes("imagen_d");
+                //InputStream img = rs.getBinaryStream(1);
                 if (resultado==1){ 
                     varnombre = rs.getString("PRODUCTO");
                     TxtNombredelproducto.setText(rs.getString("PRODUCTO"));
@@ -73,6 +84,16 @@ public void validarProducto(){
                     vardescripcion = rs.getString("DESCRIPCION");
                     Txtdescripcion.setText(rs.getString("DESCRIPCION"));
                     
+                    image = rs.getBytes("imagen_d");
+                    InputStream img = rs.getBinaryStream("imagen_d");                    
+                    buffimg = ImageIO.read(img);                    
+                    int x = TxtImagen.getWidth();
+                    int y = TxtImagen.getHeight();                                     
+                    ImagenMySQL imagen = new ImagenMySQL(x, y, buffimg);                    
+
+                    TxtImagen.add(imagen);
+                    TxtImagen.repaint();
+                    
                     this.dispose();
                     this.setVisible(true);
                 }
@@ -86,11 +107,11 @@ public void validarProducto(){
         }
     }
 
-public void botonVolver(){            
-    Inicio_Almacen form = new Inicio_Almacen();
-    form.setVisible(true);
-    this.dispose();
- }
+    public void botonVolver(){            
+        Inicio_Almacen form = new Inicio_Almacen();
+        form.setVisible(true);
+        this.dispose();
+     }
    
     public Consulta_del_producto() {
         initComponents();
