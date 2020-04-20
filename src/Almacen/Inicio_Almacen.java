@@ -25,11 +25,6 @@ public class Inicio_Almacen extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }
-    public void BotonAnadirStock() {
-        Añadir_Stock form = new Añadir_Stock();
-        form.setVisible(true);
-        this.dispose();
-    }
     
     public void BotonVolver() {
         Inicio_Almacenes_Luxup form = new Inicio_Almacenes_Luxup();
@@ -197,7 +192,7 @@ public class Inicio_Almacen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProductoNuevoActionPerformed
 
     private void jButtonAñadirStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirStockActionPerformed
-        BotonAnadirStock();
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAñadirStockActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
