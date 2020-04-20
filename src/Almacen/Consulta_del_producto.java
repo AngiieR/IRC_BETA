@@ -2,6 +2,8 @@ package Almacen;
 
 
 import conexion.conexionSQL;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -12,6 +14,15 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Consulta_del_producto extends javax.swing.JFrame {
+  
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }       
     
     public String varnombre="";
     public String vardepartamento="";
@@ -149,6 +160,7 @@ public void validarProducto(){
         jButtonVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 

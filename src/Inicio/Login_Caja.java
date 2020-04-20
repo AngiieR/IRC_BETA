@@ -7,6 +7,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Almacen.*;
 import Caja.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -21,6 +23,16 @@ public class Login_Caja extends javax.swing.JFrame {
         initComponents();
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }   
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +53,7 @@ public class Login_Caja extends javax.swing.JFrame {
         txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 

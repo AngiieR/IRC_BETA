@@ -5,9 +5,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Inicio.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class Inicio_Almacen extends javax.swing.JFrame {
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
+
+
+        return retValue;
+    }       
+    
     conexionSQL cc = new conexionSQL();
     Connection con = cc.conexion();
 
@@ -51,6 +62,7 @@ public class Inicio_Almacen extends javax.swing.JFrame {
         jButtonProductoNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
