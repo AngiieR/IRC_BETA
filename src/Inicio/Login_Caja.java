@@ -163,7 +163,8 @@ public class Login_Caja extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
  public void validarUsuario(){ 
-        
+        conexionSQL cc=new conexionSQL();
+        Connection con=cc.conexion();
         int resultado = 0;
         
         String pass = String.valueOf(txtPass.getPassword());

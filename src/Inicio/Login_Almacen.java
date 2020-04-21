@@ -160,7 +160,8 @@ public class Login_Almacen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
  public void validarUsuario(){ 
-        
+        conexionSQL cc=new conexionSQL();
+        Connection con=cc.conexion();
         int resultado = 0;
         
         String pass = String.valueOf(txtPass.getPassword());
@@ -184,7 +185,7 @@ public class Login_Almacen extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Error de Acceso, Usuario no registardo");
             }
             rs.close();
-            st.close(); 
+            st.close();
             con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
