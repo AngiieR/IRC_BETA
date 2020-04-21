@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
  * @author AngelicaReyesChaparr
  */
 
-
 public class conexionSQL {
     
     Connection conectar = null;

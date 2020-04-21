@@ -108,8 +108,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                                 ps.setString(8, descripcion);
                                                                 
                                 ps.setBinaryStream(9, fis, (int) fichero.length());
-                                ps.execute();
-                                ps.close();
                                 JOptionPane.showMessageDialog(null, "Imagen Guardada");
 
                                 //Mostrar imagen
@@ -122,10 +120,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                             } catch (SQLException ex) {
                                 Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
                                 JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
-                            }
-                        
-                        ps.close();
-                        con.close();                            
+                            }                           
 
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +170,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
             TxtImagen.add(imgExt);
             TxtImagen.repaint();
         }
-
     }
         
     public Carga_Producto_Nuevo() {
