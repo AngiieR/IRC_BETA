@@ -188,6 +188,7 @@ public class Login_Caja extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
+            con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

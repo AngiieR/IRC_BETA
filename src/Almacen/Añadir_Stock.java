@@ -77,7 +77,9 @@ public void validarProducto(){
                 JOptionPane.showMessageDialog(null,"Producto no encontrado");  
                     
             }
-  
+            rs.close();
+            st.close();
+            con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
@@ -103,6 +105,7 @@ public void BotonGuardar(){
             this.setVisible(true);
         rs.close();
         st.close();
+        con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
             

@@ -183,11 +183,13 @@ public class Login_Almacen extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Error de Acceso, Usuario no registardo");
             }
-         rs.close();
-         st.close();   
+            rs.close();
+            st.close(); 
+            con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+        
     }
     private void jButtonProductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductoNuevoActionPerformed
         validarUsuario();
