@@ -20,11 +20,11 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
         return retValue;
     }   
     
-    conexionSQL cc = new conexionSQL();
-    Connection con = cc.conexion();
+    //conexionSQL cc = new conexionSQL();
+    //Connection con = cc.conexion();
 
-    PreparedStatement ps;
-    ResultSet rs;
+    //PreparedStatement ps;
+    //ResultSet rs;
 
     public void BotonAlmacen() {
         Login_Almacen form = new Login_Almacen();

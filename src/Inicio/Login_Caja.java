@@ -168,7 +168,7 @@ public class Login_Caja extends javax.swing.JFrame {
         
         String pass = String.valueOf(txtPass.getPassword());
         String usuario = txtUsuario.getText();
-               usuario = usuario.replace("'","''");
+        usuario = usuario.replace("'","''");
         String SQL = "select * from usuarios where id = '"+usuario+"' and contrasenia = '"+pass+"' and cargo <> 'ALMACEN';";
         
         try{
@@ -188,6 +188,7 @@ public class Login_Caja extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
+            con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

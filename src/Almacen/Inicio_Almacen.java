@@ -19,11 +19,11 @@ public class Inicio_Almacen extends javax.swing.JFrame {
         return retValue;
     }       
     
-    conexionSQL cc = new conexionSQL();
-    Connection con = cc.conexion();
+    //conexionSQL cc = new conexionSQL();
+    //Connection con = cc.conexion();
 
-    PreparedStatement ps;
-    ResultSet rs;
+    //PreparedStatement ps;
+    //ResultSet rs;
 
     public void BotonConsulta() {
         Consulta_del_producto form = new Consulta_del_producto();

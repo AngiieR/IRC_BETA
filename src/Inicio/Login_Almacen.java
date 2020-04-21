@@ -165,7 +165,7 @@ public class Login_Almacen extends javax.swing.JFrame {
         
         String pass = String.valueOf(txtPass.getPassword());
         String usuario = txtUsuario.getText();
-               usuario = usuario.replace("'","''");
+        usuario = usuario.replace("'","''");
         String SQL = "select * from usuarios where id = '"+usuario+"' and contrasenia = '"+pass+"' and cargo <> 'CAJA';";
         
         try{
@@ -183,7 +183,9 @@ public class Login_Almacen extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Error de Acceso, Usuario no registardo");
             }
-            
+        st.close();
+        rs.close();
+        con.close();    
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

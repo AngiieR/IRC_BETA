@@ -34,8 +34,8 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     conexionSQL cc = new conexionSQL();
     Connection con = cc.conexion();
 
-    PreparedStatement ps;
-    ResultSet rs;
+    //PreparedStatement ps;
+    //ResultSet rs;
     
     
     private void limpiarCajas() {
@@ -117,15 +117,15 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                                 int y = TxtImagen.getHeight();
                                 Imagen img = new Imagen(x, y, ruta);
                                 TxtImagen.add(img);
-                                TxtImagen.repaint();
-                                
+                                TxtImagen.repaint();  
+                            ps.close();    
                             } catch (SQLException ex) {
                                 Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
                                 JOptionPane.showMessageDialog(null, "Error en cargar Imagen");
                             }
                         
-                        ps.close();
-                        con.close();                            
+                        //ps.close();
+                        //con.close();                            
 
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(Carga_Producto_Nuevo.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,6 +145,7 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
+            con.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
