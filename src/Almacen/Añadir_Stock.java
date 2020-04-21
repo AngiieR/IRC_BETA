@@ -101,9 +101,12 @@ public void BotonGuardar(){
             JOptionPane.showMessageDialog(null, "Adición exitosa");
             this.dispose();
             this.setVisible(true);
-
+        rs.close();
+        st.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            
+            
         }
     }
 

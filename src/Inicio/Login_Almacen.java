@@ -183,7 +183,8 @@ public class Login_Almacen extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Error de Acceso, Usuario no registardo");
             }
-            
+         rs.close();
+         st.close();   
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

@@ -1,9 +1,5 @@
 package Almacen;
 
-import conexion.conexionSQL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import Inicio.*;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -18,12 +14,6 @@ public class Inicio_Almacen extends javax.swing.JFrame {
 
         return retValue;
     }       
-    
-    conexionSQL cc = new conexionSQL();
-    Connection con = cc.conexion();
-
-    PreparedStatement ps;
-    ResultSet rs;
 
     public void BotonConsulta() {
         Consulta_del_producto form = new Consulta_del_producto();
@@ -33,6 +23,12 @@ public class Inicio_Almacen extends javax.swing.JFrame {
     
     public void BotonProductoNuevo() {
         Carga_Producto_Nuevo form = new Carga_Producto_Nuevo();
+        form.setVisible(true);
+        this.dispose();
+    }
+    
+    public void BotonAnadirStock() {
+        Añadir_Stock form = new Añadir_Stock();
         form.setVisible(true);
         this.dispose();
     }
@@ -204,7 +200,7 @@ public class Inicio_Almacen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonProductoNuevoActionPerformed
 
     private void jButtonAñadirStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirStockActionPerformed
-        // TODO add your handling code here:
+        BotonAnadirStock();
     }//GEN-LAST:event_jButtonAñadirStockActionPerformed
 
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed

@@ -1,13 +1,8 @@
 package Inicio;
 
 import Almacen.*;
-import Caja.*;
-import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
 
@@ -19,12 +14,6 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
 
         return retValue;
     }   
-    
-    conexionSQL cc = new conexionSQL();
-    Connection con = cc.conexion();
-
-    PreparedStatement ps;
-    ResultSet rs;
 
     public void BotonAlmacen() {
         Login_Almacen form = new Login_Almacen();
