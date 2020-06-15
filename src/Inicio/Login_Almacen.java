@@ -81,7 +81,7 @@ public class Login_Almacen extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Pristina", 0, 16)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Solo hay una cosa que quiero... y eso es LUXUP");
+        jLabel12.setText("Solo hay una cosa que quiero... y eso es BETA");
 
         jButtonProductoNuevo.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jButtonProductoNuevo.setText("Entrar");

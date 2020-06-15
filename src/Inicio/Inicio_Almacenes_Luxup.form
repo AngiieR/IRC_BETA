@@ -76,7 +76,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Almacenes Luxup"/>
+            <Property name="text" type="java.lang.String" value="Almacenes Beta"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
@@ -174,7 +174,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Pristina" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Solo hay una cosa que quiero... y eso es LUXUP"/>
+                <Property name="text" type="java.lang.String" value="Solo hay una cosa que quiero... y eso es BETA"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
