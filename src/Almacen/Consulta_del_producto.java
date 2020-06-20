@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -53,7 +54,92 @@ private void limpiarCajas(){
     
     TxtCodigodeBarras.requestFocus();
 }    
+public int deleteRecordProducto(String ID) {
+        try {
+            String id_barras = TxtCodigodeBarras.getText();
+            String table_name = "productos";
+            String Query = "DELETE FROM " + table_name + " WHERE ID = \"" + id_barras + "\"";
+            Statement st = con.createStatement();
+            st.executeUpdate(Query);
+          return 1;
+        //    JOptionPane.showMessageDialog(this, "Se borro el registro especificado");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return 0;
+           // JOptionPane.showMessageDialog(this, "Error borrando el registro especificado");
+        }
+    } 
 
+public void modificarProducto(){
+
+    int valida = 0;
+    valida = updateDataProducto(varprecio, vardepartamento, varexistencia, varproveedor, varexistencia, varcosto, vardescripcion);
+    if(valida == 0){
+        JOptionPane.showMessageDialog(this, "No se modificaron los productos");
+        
+    }
+    else{
+        JOptionPane.showMessageDialog(this, "Se modificaron los productos con éxito");
+        validarProducto();
+    }
+}
+
+public int updateDataProducto(String producto, 
+        String departamento,
+        String existencia, 
+        String proovedor, 
+            String precio_unitario,
+            String costo_unitario,
+            String descripcion) {
+        try {
+            producto = TxtNombredelproducto.getText();
+            departamento = TxtDepartamento.getText();
+            existencia = TxtExistencia.getText();
+            proovedor = Txtproveedor.getText();
+            precio_unitario = TxtPrecio.getText();
+            costo_unitario = Txtcosto.getText();
+            descripcion = Txtdescripcion.getText();
+            
+            byte[] image = null;
+            String table_name = "productos";
+            String id_barras = TxtCodigodeBarras.getText();
+            //int response;
+            String sql = ("UPDATE  " + table_name  + " "
+                    + "SET producto =  '" + producto + "', "
+                    + "departamento = '" + departamento + "', "
+                    + "existencia = '" + existencia + "', "
+                    + "proveedor = '" + proovedor + "', "
+                    + "precio_unitario = '" + precio_unitario + "', "
+                    + "costo_unitario = '" + costo_unitario + "', "
+                    + "descripcion = '" + descripcion + "' "
+                + "WHERE  id = '"+id_barras+"'");
+            System.out.println("ConsultaPreparada"+sql);
+            Statement st = con.createStatement();
+            st.executeUpdate(sql);	
+            //System.out.println(" Response: "+ response);
+            //JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
+            return 1;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            //JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
+            return 0;
+        }
+    } 
+
+public void eliminarProducto(){
+
+    int valida = 0;
+    valida = deleteRecordProducto("");
+    
+    if(valida == 0){
+        JOptionPane.showMessageDialog(this, "Se eliminaron los productos");
+        
+    }
+    else{
+        JOptionPane.showMessageDialog(this, "Se eliminaron los productos con éxito");
+        validarProducto();
+    }
+}
 public void validarProducto(){
     
         int resultado = 0;
@@ -87,10 +173,10 @@ public void validarProducto(){
                     Txtproveedor.setText(rs.getString("PROVEEDOR"));
                     
                     varprecio = rs.getString("PRECIO_UNITARIO");
-                    TxtPrecio.setText("$ "+ rs.getString("PRECIO_UNITARIO"));
+                    TxtPrecio.setText(rs.getString("PRECIO_UNITARIO"));
                     
                     varcosto = rs.getString("COSTO_UNITARIO");
-                    Txtcosto.setText("$ "+ rs.getString("COSTO_UNITARIO"));
+                    Txtcosto.setText(rs.getString("COSTO_UNITARIO"));
                     
                     vardescripcion = rs.getString("DESCRIPCION");
                     Txtdescripcion.setText(rs.getString("DESCRIPCION"));
@@ -157,6 +243,8 @@ public void validarProducto(){
         TxtDepartamento = new javax.swing.JTextField();
         jButtonLimpiar = new javax.swing.JButton();
         jButtonVolver = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -181,7 +269,7 @@ public void validarProducto(){
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -201,7 +289,6 @@ public void validarProducto(){
 
         jLabel4.setText("Nombre del producto:");
 
-        TxtNombredelproducto.setEditable(false);
         TxtNombredelproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtNombredelproductoActionPerformed(evt);
@@ -212,7 +299,6 @@ public void validarProducto(){
 
         jLabel6.setText("Existencia:");
 
-        TxtExistencia.setEditable(false);
         TxtExistencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtExistenciaActionPerformed(evt);
@@ -221,7 +307,6 @@ public void validarProducto(){
 
         jLabel7.setText("Proveedor:");
 
-        Txtproveedor.setEditable(false);
         Txtproveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtproveedorActionPerformed(evt);
@@ -230,21 +315,15 @@ public void validarProducto(){
 
         jLabel8.setText("Descripcion:");
 
-        Txtdescripcion.setEditable(false);
+        jLabel10.setText("Precio: $");
 
-        jLabel10.setText("Precio:");
-
-        TxtPrecio.setEditable(false);
         TxtPrecio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        jLabel11.setText("Costo:");
+        jLabel11.setText("Costo: $");
 
-        Txtcosto.setEditable(false);
         Txtcosto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel12.setText("Imagen:");
-
-        TxtImagen.setEditable(false);
 
         TxtCodigodeBarras.setToolTipText("");
         TxtCodigodeBarras.setName("TxtCodigodeBarras"); // NOI18N
@@ -254,7 +333,6 @@ public void validarProducto(){
             }
         });
 
-        TxtDepartamento.setEditable(false);
         TxtDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtDepartamentoActionPerformed(evt);
@@ -277,6 +355,22 @@ public void validarProducto(){
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -321,12 +415,17 @@ public void validarProducto(){
                         .addGap(223, 223, 223))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
+                        .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                            .addComponent(jButtonLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -365,14 +464,19 @@ public void validarProducto(){
                             .addComponent(jLabel7)
                             .addComponent(Txtproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9))
+                    .addComponent(Txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -381,7 +485,7 @@ public void validarProducto(){
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,6 +525,17 @@ public void validarProducto(){
     private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
         botonVolver();
     }//GEN-LAST:event_jButtonVolverActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Modificar
+        modificarProducto();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+   eliminarProducto();     //Eliminar
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -445,6 +560,7 @@ public void validarProducto(){
             java.util.logging.Logger.getLogger(Consulta_del_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -464,6 +580,8 @@ public void validarProducto(){
     private javax.swing.JTextField Txtcosto;
     private javax.swing.JTextField Txtdescripcion;
     private javax.swing.JTextField Txtproveedor;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonVolver;
     private javax.swing.JLabel jLabel1;
