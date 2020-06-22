@@ -1,6 +1,7 @@
 package Administracion;//Empieza...
 import Caja.*;
 import Almacen.*;
+import Inicio.*;
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -33,8 +34,8 @@ public class Reporte_Global extends javax.swing.JFrame {
     ResultSet rs;
     
 
-    public void BotonFinalizar_Venta() {
-        Finalizar_Venta form = new Finalizar_Venta();
+    public void BotonSalir() {
+         Inicio_Almacenes_Luxup form = new Inicio_Almacenes_Luxup();
         form.setVisible(true);
         
  }
@@ -53,13 +54,13 @@ public class Reporte_Global extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Total = new javax.swing.JTextField();
-        jButtonCancelarProducto = new javax.swing.JButton();
+        jButtonReporteMensual = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Ventas = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jButtonCancelarventa = new javax.swing.JButton();
-        jButtonFinalizarVenta = new javax.swing.JButton();
-        jButtonArqueo = new javax.swing.JButton();
+        jButtonReporteGeneral = new javax.swing.JButton();
+        jButtonReporteDiario = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         TxtCodigodeBarras4.setToolTipText("");
         TxtCodigodeBarras4.setName("TxtCodigodeBarras"); // NOI18N
@@ -116,13 +117,13 @@ public class Reporte_Global extends javax.swing.JFrame {
             }
         });
 
-        jButtonCancelarProducto.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jButtonCancelarProducto.setText("Reporte Mensual");
-        jButtonCancelarProducto.setToolTipText("");
-        jButtonCancelarProducto.setActionCommand("");
-        jButtonCancelarProducto.addActionListener(new java.awt.event.ActionListener() {
+        jButtonReporteMensual.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButtonReporteMensual.setText("Reporte Mensual");
+        jButtonReporteMensual.setToolTipText("");
+        jButtonReporteMensual.setActionCommand("");
+        jButtonReporteMensual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarProductoActionPerformed(evt);
+                jButtonReporteMensualActionPerformed(evt);
             }
         });
 
@@ -152,33 +153,33 @@ public class Reporte_Global extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Total de Ventas M. N. $");
 
-        jButtonCancelarventa.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jButtonCancelarventa.setText("Reporte General");
-        jButtonCancelarventa.setToolTipText("");
-        jButtonCancelarventa.setActionCommand("");
-        jButtonCancelarventa.addActionListener(new java.awt.event.ActionListener() {
+        jButtonReporteGeneral.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButtonReporteGeneral.setText("Reporte General");
+        jButtonReporteGeneral.setToolTipText("");
+        jButtonReporteGeneral.setActionCommand("");
+        jButtonReporteGeneral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarventaActionPerformed(evt);
+                jButtonReporteGeneralActionPerformed(evt);
             }
         });
 
-        jButtonFinalizarVenta.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jButtonFinalizarVenta.setText("Reporte diario");
-        jButtonFinalizarVenta.setToolTipText("");
-        jButtonFinalizarVenta.setActionCommand("");
-        jButtonFinalizarVenta.addActionListener(new java.awt.event.ActionListener() {
+        jButtonReporteDiario.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButtonReporteDiario.setText("Reporte diario");
+        jButtonReporteDiario.setToolTipText("");
+        jButtonReporteDiario.setActionCommand("");
+        jButtonReporteDiario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFinalizarVentaActionPerformed(evt);
+                jButtonReporteDiarioActionPerformed(evt);
             }
         });
 
-        jButtonArqueo.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jButtonArqueo.setText("Salir");
-        jButtonArqueo.setToolTipText("");
-        jButtonArqueo.setActionCommand("");
-        jButtonArqueo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSalir.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jButtonSalir.setText("Salir");
+        jButtonSalir.setToolTipText("");
+        jButtonSalir.setActionCommand("");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonArqueoActionPerformed(evt);
+                jButtonSalirActionPerformed(evt);
             }
         });
 
@@ -196,10 +197,10 @@ public class Reporte_Global extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonCancelarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonCancelarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonArqueo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonReporteMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonReporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonReporteGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -214,13 +215,13 @@ public class Reporte_Global extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(jButtonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReporteDiario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
-                        .addComponent(jButtonCancelarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReporteMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addComponent(jButtonCancelarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonReporteGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonArqueo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -253,25 +254,25 @@ public class Reporte_Global extends javax.swing.JFrame {
      
     }//GEN-LAST:event_TxtCodigodeBarras4
 
-    private void jButtonCancelarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarProductoActionPerformed
+    private void jButtonReporteMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteMensualActionPerformed
 
-    }//GEN-LAST:event_jButtonCancelarProductoActionPerformed
+    }//GEN-LAST:event_jButtonReporteMensualActionPerformed
 
     private void Total(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Total
 
     }//GEN-LAST:event_Total
 
-    private void jButtonCancelarventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarventaActionPerformed
+    private void jButtonReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteGeneralActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonCancelarventaActionPerformed
+    }//GEN-LAST:event_jButtonReporteGeneralActionPerformed
 
-    private void jButtonFinalizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarVentaActionPerformed
-        BotonFinalizar_Venta();// TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFinalizarVentaActionPerformed
+    private void jButtonReporteDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteDiarioActionPerformed
+ 
+    }//GEN-LAST:event_jButtonReporteDiarioActionPerformed
 
-    private void jButtonArqueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonArqueoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonArqueoActionPerformed
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        BotonSalir();// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSalirActionPerformed
  
     public static void main(String args[]) {
        
@@ -286,10 +287,10 @@ public class Reporte_Global extends javax.swing.JFrame {
     private javax.swing.JTextField Total;
     private javax.swing.JTextField TxtCodigodeBarras4;
     private javax.swing.JTable Ventas;
-    private javax.swing.JButton jButtonArqueo;
-    private javax.swing.JButton jButtonCancelarProducto;
-    private javax.swing.JButton jButtonCancelarventa;
-    private javax.swing.JButton jButtonFinalizarVenta;
+    private javax.swing.JButton jButtonReporteDiario;
+    private javax.swing.JButton jButtonReporteGeneral;
+    private javax.swing.JButton jButtonReporteMensual;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

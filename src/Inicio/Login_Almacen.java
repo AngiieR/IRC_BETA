@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Almacen.*;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author AngelicaReyesChaparr
  */
 public class Login_Almacen extends javax.swing.JFrame {
-
-    conexionSQL cc=new conexionSQL();
-    Connection con=cc.conexion();
     
     public Login_Almacen() {
         initComponents();
@@ -184,8 +185,14 @@ public class Login_Almacen extends javax.swing.JFrame {
             rs.close();
             st.close();
             con.close();
-        }catch (Exception e){
+        }catch (SQLException | HeadlessException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }
@@ -217,10 +224,8 @@ public class Login_Almacen extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login_Almacen().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Login_Almacen().setVisible(true);
         });
     }
 

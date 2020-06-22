@@ -1,6 +1,5 @@
 package Almacen;
 
-
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,86 +10,99 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Consulta_del_producto extends javax.swing.JFrame {
-  
+
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().
                 getImage(ClassLoader.getSystemResource("./Imagenes/logo_icon.png"));
 
-
         return retValue;
-    }       
-    
-    public String varnombre="";
-    public String vardepartamento="";
-    public String varexistencia="";
-    public String varproveedor="";
-    public String vardescripcion="";
-    public String varprecio="";
-    public String varcosto="";
-    
-    conexionSQL cc=new conexionSQL();
-    Connection con=cc.conexion();
-        
-    PreparedStatement ps;
-    ResultSet rs;
-    
-private void limpiarCajas(){
-    
-    TxtCodigodeBarras.setText(null);
-    TxtNombredelproducto.setText(null);      
-    TxtDepartamento.setText(null);
-    Txtcosto.setText(null); 
-    TxtPrecio.setText(null); 
-    Txtproveedor.setText(null);
-    Txtdescripcion.setText(null);
-    TxtExistencia.setText(null); 
-    TxtImagen.removeAll();
-    TxtImagen.repaint();
-    
-    TxtCodigodeBarras.requestFocus();
-}    
-public int deleteRecordProducto(String ID) {
+    }
+
+    public String varnombre = "";
+    public String vardepartamento = "";
+    public String varexistencia = "";
+    public String varproveedor = "";
+    public String vardescripcion = "";
+    public String varprecio = "";
+    public String varcosto = "";
+
+    private void limpiarCajas() {
+
+        TxtCodigodeBarras.setText(null);
+        TxtNombredelproducto.setText(null);
+        TxtDepartamento.setText(null);
+        Txtcosto.setText(null);
+        TxtPrecio.setText(null);
+        Txtproveedor.setText(null);
+        Txtdescripcion.setText(null);
+        TxtExistencia.setText(null);
+        TxtImagen.removeAll();
+        TxtImagen.repaint();
+
+        TxtCodigodeBarras.requestFocus();
+    }
+
+    public int deleteRecordProducto(String ID) {
+
+        conexionSQL cc = new conexionSQL();
+        Connection con = cc.conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+
         try {
             String id_barras = TxtCodigodeBarras.getText();
             String table_name = "productos";
             String Query = "DELETE FROM " + table_name + " WHERE ID = \"" + id_barras + "\"";
             Statement st = con.createStatement();
             st.executeUpdate(Query);
-          return 1;
-        //    JOptionPane.showMessageDialog(this, "Se borro el registro especificado");
+            return 1;
+            //    JOptionPane.showMessageDialog(this, "Se borro el registro especificado");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             return 0;
-           // JOptionPane.showMessageDialog(this, "Error borrando el registro especificado");
+            // JOptionPane.showMessageDialog(this, "Error borrando el registro especificado");
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    } 
+    }
 
-public void modificarProducto(){
-
-    int valida = 0;
-    valida = updateDataProducto(varprecio, vardepartamento, varexistencia, varproveedor, varexistencia, varcosto, vardescripcion);
-    if(valida == 0){
-        JOptionPane.showMessageDialog(this, "No se modificaron los productos");
+    public void modificarProducto() {
         
-    }
-    else{
-        JOptionPane.showMessageDialog(this, "Se modificaron los productos con éxito");
-        validarProducto();
-    }
-}
+        int valida = 0;
+        valida = updateDataProducto(varprecio, vardepartamento, varexistencia, varproveedor, varexistencia, varcosto, vardescripcion);
+        if (valida == 0) {
+            JOptionPane.showMessageDialog(this, "No se modificaron los productos");
 
-public int updateDataProducto(String producto, 
-        String departamento,
-        String existencia, 
-        String proovedor, 
+        } else {
+            JOptionPane.showMessageDialog(this, "Se modificaron los productos con éxito");
+            validarProducto();
+        }
+    }
+
+    public int updateDataProducto(String producto,
+            String departamento,
+            String existencia,
+            String proovedor,
             String precio_unitario,
             String costo_unitario,
             String descripcion) {
+        
+        conexionSQL cc = new conexionSQL();
+        Connection con = cc.conexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        
         try {
             producto = TxtNombredelproducto.getText();
             departamento = TxtDepartamento.getText();
@@ -99,12 +111,12 @@ public int updateDataProducto(String producto,
             precio_unitario = TxtPrecio.getText();
             costo_unitario = Txtcosto.getText();
             descripcion = Txtdescripcion.getText();
-            
+
             byte[] image = null;
             String table_name = "productos";
             String id_barras = TxtCodigodeBarras.getText();
             //int response;
-            String sql = ("UPDATE  " + table_name  + " "
+            String sql = ("UPDATE  " + table_name + " "
                     + "SET producto =  '" + producto + "', "
                     + "departamento = '" + departamento + "', "
                     + "existencia = '" + existencia + "', "
@@ -112,10 +124,10 @@ public int updateDataProducto(String producto,
                     + "precio_unitario = '" + precio_unitario + "', "
                     + "costo_unitario = '" + costo_unitario + "', "
                     + "descripcion = '" + descripcion + "' "
-                + "WHERE  id = '"+id_barras+"'");
-            System.out.println("ConsultaPreparada"+sql);
+                    + "WHERE  id = '" + id_barras + "'");
+            System.out.println("ConsultaPreparada" + sql);
             Statement st = con.createStatement();
-            st.executeUpdate(sql);	
+            st.executeUpdate(sql);
             //System.out.println(" Response: "+ response);
             //JOptionPane.showMessageDialog(null, "Datos almacenados de forma exitosa");
             return 1;
@@ -123,98 +135,111 @@ public int updateDataProducto(String producto,
             System.out.println(ex.getMessage());
             //JOptionPane.showMessageDialog(null, "Error en el almacenamiento de datos");
             return 0;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    } 
+    }
 
-public void eliminarProducto(){
+    public void eliminarProducto() {
 
-    int valida = 0;
-    valida = deleteRecordProducto("");
-    
-    if(valida == 0){
-        JOptionPane.showMessageDialog(this, "Se eliminaron los productos");
+        int valida = 0;
+        valida = deleteRecordProducto("");
+
+        if (valida == 0) {
+            JOptionPane.showMessageDialog(this, "Se eliminaron los productos");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Se eliminaron los productos con éxito");
+            validarProducto();
+        }
+    }
+
+    public void validarProducto() {
         
-    }
-    else{
-        JOptionPane.showMessageDialog(this, "Se eliminaron los productos con éxito");
-        validarProducto();
-    }
-}
-public void validarProducto(){
-    
+        conexionSQL cc = new conexionSQL();
+        Connection con = cc.conexion();
+
         int resultado = 0;
         String barras = TxtCodigodeBarras.getText();
-        String SQL = "select * from productos where id = '"+ barras +"';";
+        String SQL = "select * from productos where id = '" + barras + "';";
         //Imagen
         BufferedImage buffimg = null;
         byte[] image = null;
-        
-        
-        try{
+
+        try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SQL);
-            
-            if (rs.next()){
+
+            if (rs.next()) {
                 resultado = 1;
                 //Imagen
                 //image = rs.getBytes("imagen_d");
                 //InputStream img = rs.getBinaryStream(1);
-                if (resultado==1){ 
+                if (resultado == 1) {
                     varnombre = rs.getString("PRODUCTO");
                     TxtNombredelproducto.setText(rs.getString("PRODUCTO"));
-                    
+
                     vardepartamento = rs.getString("DEPARTAMENTO");
                     TxtDepartamento.setText(rs.getString("DEPARTAMENTO"));
-                    
+
                     varexistencia = rs.getString("EXISTENCIA");
                     TxtExistencia.setText(rs.getString("EXISTENCIA"));
-                    
+
                     varproveedor = rs.getString("PROVEEDOR");
                     Txtproveedor.setText(rs.getString("PROVEEDOR"));
-                    
+
                     varprecio = rs.getString("PRECIO_UNITARIO");
                     TxtPrecio.setText(rs.getString("PRECIO_UNITARIO"));
-                    
+
                     varcosto = rs.getString("COSTO_UNITARIO");
                     Txtcosto.setText(rs.getString("COSTO_UNITARIO"));
-                    
+
                     vardescripcion = rs.getString("DESCRIPCION");
                     Txtdescripcion.setText(rs.getString("DESCRIPCION"));
-                    
+
                     image = rs.getBytes("imagen_d");
-                    InputStream img = rs.getBinaryStream("imagen_d");                    
-                    buffimg = ImageIO.read(img);                    
+                    InputStream img = rs.getBinaryStream("imagen_d");
+                    buffimg = ImageIO.read(img);
                     int x = TxtImagen.getWidth();
-                    int y = TxtImagen.getHeight();                                     
-                    ImagenMySQL imagen = new ImagenMySQL(x, y, buffimg);                    
+                    int y = TxtImagen.getHeight();
+                    ImagenMySQL imagen = new ImagenMySQL(x, y, buffimg);
 
                     TxtImagen.add(imagen);
                     TxtImagen.repaint();
-                    
+
                     this.dispose();
                     this.setVisible(true);
                 }
-            
-            }               
-            else{
-                JOptionPane.showMessageDialog(null,"Producto no encontrado");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Producto no encontrado");
             }
-                 
-        }catch (Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
-    public void botonVolver(){            
+    public void botonVolver() {
         Inicio_Almacen form = new Inicio_Almacen();
         form.setVisible(true);
         this.dispose();
-     }
-   
+    }
+
     public Consulta_del_producto() {
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -529,14 +554,14 @@ public void validarProducto(){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Modificar
         modificarProducto();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-   eliminarProducto();     //Eliminar
+        eliminarProducto();     //Eliminar
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

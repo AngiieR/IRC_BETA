@@ -3,11 +3,9 @@ package Almacen;
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -54,6 +51,9 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
     }
    
     public void insertarProducto() {
+        
+    conexionSQL cc = new conexionSQL();
+    Connection con = cc.conexion();
 
         String id = TxtCodigodeBarras.getText();
         String departamento = TxtDepartamento.getText();
@@ -92,7 +92,6 @@ public class Carga_Producto_Nuevo extends javax.swing.JFrame {
                         
                         try {
                             FileInputStream fis = new FileInputStream(fichero);
-                            Connection con = cc.conexion();
                             try {
                                 PreparedStatement ps;
                                 ResultSet rsimg;

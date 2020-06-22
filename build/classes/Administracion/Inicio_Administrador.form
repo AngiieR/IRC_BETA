@@ -128,9 +128,9 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jButtonAñadirStock" pref="157" max="32767" attributes="0"/>
-                              <Component id="jButtonConsulta" pref="157" max="32767" attributes="0"/>
-                              <Component id="jButtonProductoNuevo" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jButtonCaja" pref="157" max="32767" attributes="0"/>
+                              <Component id="jButtonAlmacen" pref="157" max="32767" attributes="0"/>
+                              <Component id="jButtonReportes" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
@@ -144,11 +144,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                  <Component id="jButtonConsulta" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="jButtonAlmacen" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jButtonAñadirStock" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="jButtonCaja" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                  <Component id="jButtonProductoNuevo" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="jButtonReportes" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Component id="jButtonVolver" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -165,7 +165,7 @@
             <Property name="text" type="java.lang.String" value="Bienvenido"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonConsulta">
+        <Component class="javax.swing.JButton" name="jButtonAlmacen">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -174,7 +174,7 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConsultaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAlmacenActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonVolver">
@@ -190,7 +190,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVolverActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonA&#xf1;adirStock">
+        <Component class="javax.swing.JButton" name="jButtonCaja">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -199,10 +199,10 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonA&#xf1;adirStockActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCajaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonProductoNuevo">
+        <Component class="javax.swing.JButton" name="jButtonReportes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -211,7 +211,7 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonProductoNuevoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReportesActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

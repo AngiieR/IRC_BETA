@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import Almacen.*;
-import Caja.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,8 +18,6 @@ import java.awt.Toolkit;
  */
 public class Login_Caja extends javax.swing.JFrame {
 
-    conexionSQL cc=new conexionSQL();
-    Connection con=cc.conexion();
     
     public Login_Caja() {
         initComponents();
@@ -189,6 +189,12 @@ public class Login_Caja extends javax.swing.JFrame {
             con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     private void jButtonProductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductoNuevoActionPerformed

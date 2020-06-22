@@ -145,10 +145,10 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButtonCancelarProducto" min="-2" pref="198" max="-2" attributes="0"/>
-                              <Component id="jButtonFinalizarVenta" min="-2" pref="198" max="-2" attributes="0"/>
-                              <Component id="jButtonCancelarventa" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
-                              <Component id="jButtonArqueo" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
+                              <Component id="jButtonReporteMensual" min="-2" pref="198" max="-2" attributes="0"/>
+                              <Component id="jButtonReporteDiario" min="-2" pref="198" max="-2" attributes="0"/>
+                              <Component id="jButtonReporteGeneral" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
+                              <Component id="jButtonSalir" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -168,13 +168,13 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Total" min="-2" pref="44" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="jButtonFinalizarVenta" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="jButtonReporteDiario" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="jButtonCancelarProducto" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="jButtonReporteMensual" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="jButtonCancelarventa" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="jButtonReporteGeneral" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButtonArqueo" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="jButtonSalir" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" min="-2" pref="482" max="-2" attributes="0"/>
                   </Group>
@@ -196,7 +196,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Total"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonCancelarProducto">
+        <Component class="javax.swing.JButton" name="jButtonReporteMensual">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -206,7 +206,7 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarProductoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReporteMensualActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -277,7 +277,7 @@
             <Property name="text" type="java.lang.String" value="Total de Ventas M. N. $"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonCancelarventa">
+        <Component class="javax.swing.JButton" name="jButtonReporteGeneral">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -287,10 +287,10 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarventaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReporteGeneralActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonFinalizarVenta">
+        <Component class="javax.swing.JButton" name="jButtonReporteDiario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="1"/>
@@ -300,10 +300,10 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFinalizarVentaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReporteDiarioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonArqueo">
+        <Component class="javax.swing.JButton" name="jButtonSalir">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="24" style="1"/>
@@ -313,7 +313,7 @@
             <Property name="actionCommand" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonArqueoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalirActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
