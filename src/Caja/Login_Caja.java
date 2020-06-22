@@ -8,7 +8,10 @@ import javax.swing.JOptionPane;
 import Almacen.*;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +21,10 @@ import java.util.logging.Logger;
  */
 public class Login_Caja extends javax.swing.JFrame {
 
+    public static String userName, userId;
+    public static DateTimeFormatter fechaLog;
+    public static LocalDateTime fechaYHoraLocal;
+    public static String stringFechaLog;
     
     public Login_Caja() {
         initComponents();
@@ -163,19 +170,46 @@ public class Login_Caja extends javax.swing.JFrame {
         conexionSQL cc=new conexionSQL();
         Connection con=cc.conexion();
         int resultado = 0;
-        
+
         String pass = String.valueOf(txtPass.getPassword());
         String usuario = txtUsuario.getText();
-               usuario = usuario.replace("'","''");
+        usuario = usuario.replace("'","''");
+        userId=usuario;
         String SQL = "select * from usuarios where id = '"+usuario+"' and contrasenia = '"+pass+"' and cargo <> 'ALMACEN';";
+        LocalDateTime dateTime = LocalDateTime.now();
+        fechaLog = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dateTime.format(fechaLog));
+        
+        
+        //String stringFechaLog = String.parseString(dateTime.format(fechaLog));
+        stringFechaLog = dateTime.format(fechaLog).toString();
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        // Lo convertimos a objeto para poder trabajar con él
+        fechaYHoraLocal = LocalDateTime.parse(stringFechaLog, formateador);
+        // Sumar Horas
+        //fechaYHoraLocal = fechaYHoraLocal.plusHours(5);        
+        System.out.println(fechaYHoraLocal);
         
         try{
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SQL);
+
             
             if (rs.next()){
                 resultado = 1;
                 if (resultado==1){
+                    /*Insertar Log inicio de Caja*/
+                    String dinero_inicio = JOptionPane.showInputDialog("Con cuanto dinero inicias?");
+                    float fdinero_inicio = Float.parseFloat(dinero_inicio);
+                    String SQL_insertLogUsuario = "insert into log_corte_caja (ID_USUARIO, FECHA_INICIO, DINERO_INICIO) VALUES ('"+userId+"', '"+ dateTime.format(fechaLog) +"', "+ fdinero_inicio +");";
+                    System.out.println(SQL_insertLogUsuario);
+                    try{
+                        PreparedStatement psinsertlog = con.prepareStatement(SQL_insertLogUsuario);
+                        psinsertlog.executeUpdate();
+                    }catch (Exception einsertLog){
+                        JOptionPane.showMessageDialog(null, "Error Insert Log : " + einsertLog.getMessage());
+                    }
+                                   
                     Caja form = new Caja();
                     form.setVisible(true);
                     this.dispose();
@@ -184,9 +218,6 @@ public class Login_Caja extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null,"Error de Acceso, Usuario no registardo");
             }
-            rs.close();
-            st.close();
-            con.close();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }finally{
@@ -197,6 +228,8 @@ public class Login_Caja extends javax.swing.JFrame {
             }
         }
     }
+ 
+ 
     private void jButtonProductoNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProductoNuevoActionPerformed
         validarUsuario();
     }//GEN-LAST:event_jButtonProductoNuevoActionPerformed

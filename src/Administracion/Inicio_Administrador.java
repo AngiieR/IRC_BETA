@@ -24,7 +24,7 @@ public class Inicio_Administrador extends javax.swing.JFrame {
     }
     
     public void BotonCaja() {
-        Caja form = new Caja();
+        Caja_Inicio form = new Caja_Inicio();
         form.setVisible(true);
         this.dispose();
     }

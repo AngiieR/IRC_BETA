@@ -15,6 +15,12 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
 
         return retValue;
     }   
+    
+    public void BotonAdministrador() {
+        Login_Administrador form = new Login_Administrador();
+        form.setVisible(true);
+        this.dispose();
+    }
 
     public void BotonAlmacen() {
         Login_Almacen form = new Login_Almacen();
@@ -41,9 +47,10 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
         jPanelBase = new javax.swing.JPanel();
         jButtonSalir = new javax.swing.JButton();
         jButtonCaja = new javax.swing.JButton();
-        jButtonAlmacen = new javax.swing.JButton();
+        jButtonAdministrador = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButtonAlmacen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -76,6 +83,20 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdministrador.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButtonAdministrador.setText("Administrador");
+        jButtonAdministrador.setActionCommand("");
+        jButtonAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdministradorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Pristina", 1, 24)); // NOI18N
+        jLabel3.setText("Solo hay una cosa que quiero... y eso es BETA");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo_Grande.png"))); // NOI18N
+
         jButtonAlmacen.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jButtonAlmacen.setText("Almacen");
         jButtonAlmacen.setActionCommand("");
@@ -84,11 +105,6 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
                 jButtonAlmacenActionPerformed(evt);
             }
         });
-
-        jLabel3.setFont(new java.awt.Font("Pristina", 1, 24)); // NOI18N
-        jLabel3.setText("Solo hay una cosa que quiero... y eso es BETA");
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo_Grande.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
@@ -101,11 +117,13 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
             .addGroup(jPanelBaseLayout.createSequentialGroup()
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jButtonAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jButtonCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
+                        .addContainerGap()
+                        .addComponent(jButtonAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBaseLayout.createSequentialGroup()
                         .addGap(111, 111, 111)
@@ -121,9 +139,10 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
 
@@ -161,9 +180,9 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlmacenActionPerformed
-        BotonAlmacen();
-    }//GEN-LAST:event_jButtonAlmacenActionPerformed
+    private void jButtonAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdministradorActionPerformed
+        BotonAdministrador();
+    }//GEN-LAST:event_jButtonAdministradorActionPerformed
 
     private void jButtonCajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCajaActionPerformed
         BotonCaja();
@@ -172,6 +191,10 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
+        
+    private void jButtonAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlmacenActionPerformed
+        BotonAlmacen();
+    }//GEN-LAST:event_jButtonAlmacenActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -205,6 +228,7 @@ public class Inicio_Almacenes_Luxup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAdministrador;
     private javax.swing.JButton jButtonAlmacen;
     private javax.swing.JButton jButtonCaja;
     private javax.swing.JButton jButtonSalir;

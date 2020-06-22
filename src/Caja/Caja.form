@@ -133,20 +133,11 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jButtonIniciarServicio" min="-2" pref="198" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButtonFinalizarServicio" min="-2" pref="198" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                                   <Component id="jLabelCantidad" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jButtonCancelarventa" min="-2" pref="198" max="-2" attributes="0"/>
-                                      <Component id="jButtonCancelarProducto" min="-2" pref="198" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="139" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabelDescripcion" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabelCodigo" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -162,8 +153,6 @@
                                   <Component id="jLabelPrecio" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="TxtPrecio" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jButtonBuscar" min="-2" pref="102" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jTxtCodigodeBarras" max="32767" attributes="0"/>
                           </Group>
@@ -192,6 +181,9 @@
                                       <Component id="jLabel5" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                                       <Component id="txtCambio" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                                       <Component id="jButtonFinalizarVenta" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
+                                      <Component id="jButtonCancelarProducto" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
+                                      <Component id="jButtonCancelarventa" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
+                                      <Component id="jButtonFinalizarServicio" alignment="1" min="-2" pref="198" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                               </Group>
@@ -262,24 +254,18 @@
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="TxtPrecio" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                              <Component id="jButtonBuscar" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="TxtPrecio" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="TextCantidad" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="jLabelPrecio" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="TextCantidad" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="jLabelPrecio" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabelCantidad" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButtonFinalizarServicio" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabelCantidad" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="jButtonIniciarServicio" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jButtonFinalizarServicio" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -388,19 +374,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButtonBuscar">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Calibri" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Buscar"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="actionCommand" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBuscarActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JTextField" name="jTxtCodigodeBarras">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -476,19 +449,6 @@
               <Border info="null"/>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonIniciarServicio">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Calibri" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Iniciar Servicio"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="actionCommand" type="java.lang.String" value=""/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonIniciarServicioActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonCancelarventa">
           <Properties>

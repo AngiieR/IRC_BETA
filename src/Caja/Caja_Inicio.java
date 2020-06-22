@@ -1,5 +1,6 @@
 package Caja;//Empieza...
 import Almacen.*;
+import Inicio.*;
 import conexion.conexionSQL;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -36,6 +37,12 @@ public class Caja_Inicio extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();        
  }
+    
+        public void BotonSalir() {
+        Inicio_Almacenes_Luxup form = new Inicio_Almacenes_Luxup();
+        form.setVisible(true);
+        this.dispose(); 
+        }
 
     public Caja_Inicio() {
         initComponents();
@@ -54,7 +61,7 @@ public class Caja_Inicio extends javax.swing.JFrame {
         jButtonCancelarProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Ventas = new javax.swing.JTable();
-        jButtonBuscar = new javax.swing.JButton();
+        javax.swing.JButton jButtonSalir = new javax.swing.JButton();
         jTxtCodigodeBarras = new javax.swing.JTextField();
         TextCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -65,7 +72,6 @@ public class Caja_Inicio extends javax.swing.JFrame {
         jButtonIniciarServicio = new javax.swing.JButton();
         jButtonCancelarventa = new javax.swing.JButton();
         jButtonFinalizarVenta = new javax.swing.JButton();
-        jButtonFinalizarServicio = new javax.swing.JButton();
         jLabelPrecio = new javax.swing.JLabel();
         Vendedor = new javax.swing.JTextField();
         TxtPrecio = new javax.swing.JTextField();
@@ -162,13 +168,13 @@ public class Caja_Inicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Ventas);
 
-        jButtonBuscar.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jButtonBuscar.setText("Buscar");
-        jButtonBuscar.setToolTipText("");
-        jButtonBuscar.setActionCommand("");
-        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSalir.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jButtonSalir.setText("Salir");
+        jButtonSalir.setToolTipText("");
+        jButtonSalir.setActionCommand("");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuscarActionPerformed(evt);
+                jButtonSalirActionPerformed(evt);
             }
         });
 
@@ -239,16 +245,6 @@ public class Caja_Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButtonFinalizarServicio.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jButtonFinalizarServicio.setText("Finalizar Servicio");
-        jButtonFinalizarServicio.setToolTipText("");
-        jButtonFinalizarServicio.setActionCommand("");
-        jButtonFinalizarServicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFinalizarServicioActionPerformed(evt);
-            }
-        });
-
         jLabelPrecio.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelPrecio.setForeground(new java.awt.Color(51, 51, 51));
         jLabelPrecio.setText("Precio:");
@@ -305,18 +301,10 @@ public class Caja_Inicio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jButtonIniciarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonFinalizarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(90, 90, 90)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabelCantidad))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(139, 139, 139)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButtonCancelarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonCancelarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelDescripcion, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabelCodigo, javax.swing.GroupLayout.Alignment.TRAILING))))
@@ -330,7 +318,7 @@ public class Caja_Inicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTxtCodigodeBarras)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +339,10 @@ public class Caja_Inicio extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonFinalizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonCancelarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonCancelarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButtonIniciarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(109, 109, 109)))
                         .addComponent(jScrollPane1)))
                 .addContainerGap())
@@ -403,19 +394,17 @@ public class Caja_Inicio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelarventa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButtonFinalizarServicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonIniciarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TextCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonIniciarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
@@ -454,9 +443,9 @@ public class Caja_Inicio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonCancelarProductoActionPerformed
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling Fcode here:
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        BotonSalir();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void Total(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Total
         //aqui
@@ -473,10 +462,6 @@ public class Caja_Inicio extends javax.swing.JFrame {
     private void jButtonFinalizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarVentaActionPerformed
 
     }//GEN-LAST:event_jButtonFinalizarVentaActionPerformed
-
-    private void jButtonFinalizarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarServicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonFinalizarServicioActionPerformed
 
     private void TxtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPrecioActionPerformed
         // TODO add your handling code here:
@@ -520,10 +505,8 @@ public class Caja_Inicio extends javax.swing.JFrame {
     private javax.swing.JTextField Txtdescripcion;
     private javax.swing.JTextField Vendedor;
     private javax.swing.JTable Ventas;
-    private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCancelarProducto;
     private javax.swing.JButton jButtonCancelarventa;
-    private javax.swing.JButton jButtonFinalizarServicio;
     private javax.swing.JButton jButtonFinalizarVenta;
     private javax.swing.JButton jButtonIniciarServicio;
     private javax.swing.JLabel jLabel1;
