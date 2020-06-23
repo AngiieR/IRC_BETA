@@ -50,8 +50,7 @@ public class Reporte_Global extends javax.swing.JFrame {
             
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(SQL);
-            
-            
+                        
             ResultSetMetaData rsMd = rs.getMetaData();
             int cantidadColumnas = rsMd.getColumnCount();
             
@@ -75,6 +74,12 @@ public class Reporte_Global extends javax.swing.JFrame {
         Total.setText(Float.toString(sumaTotal()));
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -117,6 +122,12 @@ public class Reporte_Global extends javax.swing.JFrame {
         Total.setText(Float.toString(sumaTotal()));
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -160,6 +171,12 @@ public class Reporte_Global extends javax.swing.JFrame {
         Total.setText(Float.toString(sumaTotal()));
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

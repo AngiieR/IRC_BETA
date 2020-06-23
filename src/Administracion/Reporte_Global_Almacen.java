@@ -64,6 +64,12 @@ public class Reporte_Global_Almacen extends javax.swing.JFrame {
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -106,6 +112,12 @@ public class Reporte_Global_Almacen extends javax.swing.JFrame {
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+       }finally{
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Consulta_del_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
